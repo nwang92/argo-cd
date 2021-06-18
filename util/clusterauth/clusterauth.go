@@ -39,9 +39,24 @@ var ArgoCDManagerClusterPolicyRules = []rbacv1.PolicyRule{
 // ArgoCDManagerNamespacePolicyRules are the namespace level policies to give argocd-manager
 var ArgoCDManagerNamespacePolicyRules = []rbacv1.PolicyRule{
 	{
-		APIGroups: []string{"*"},
-		Resources: []string{"*"},
-		Verbs:     []string{"*"},
+		APIGroups: []string{""},
+		Resources: []string{"pods", "pods/exec", "services", "endpoints", "configmaps", "secrets"},
+		Verbs:     []string{"create", "update", "get", "watch", "list", "delete", "deletecollection", "patch"},
+	},
+	{
+		APIGroups: []string{"apps", "extensions"},
+		Resources: []string{"deployments"},
+		Verbs:     []string{"create", "update", "get", "watch", "list", "delete", "deletecollection", "patch"},
+	},
+	{
+		APIGroups: []string{""},
+		Resources: []string{"pods/log", "nodes"},
+		Verbs:     []string{"get", "list", "watch"},
+	},
+	{
+		APIGroups: []string{"batch"},
+		Resources: []string{"jobs", "cronjobs"},
+		Verbs:     []string{"create", "update", "get", "watch", "list", "delete", "deletecollection", "patch"},
 	},
 }
 
